@@ -27,5 +27,9 @@ public class Student {
 
     @OneToMany(mappedBy = "student")
     @JsonIgnore
-    private List<Form> forms;
+    private List<PatientLogForm> patientLogForms;
+
+    @OneToMany(mappedBy = "student")
+    @JsonIgnore
+    private List<ProcedureForm> procedureForms;
 }

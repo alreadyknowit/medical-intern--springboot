@@ -23,6 +23,10 @@ public class Coordinator {
 
     @OneToMany(mappedBy = "coordinator")
     @JsonIgnore
-    private List<Form> forms;
+    private List<PatientLogForm> patientLogForms;
+
+    @OneToMany(mappedBy = "coordinator")
+    @JsonIgnore
+    private List<ProcedureForm> procedureForms;
 
 }

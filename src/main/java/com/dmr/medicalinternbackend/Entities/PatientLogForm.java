@@ -1,14 +1,18 @@
 package com.dmr.medicalinternbackend.Entities;
-import lombok.Data;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
 
-@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
 @Entity
-@Table(name="form")
-public class Form {
+@Table(name="patient_log")
+public class PatientLogForm {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -62,7 +66,11 @@ public class Form {
     private String status;
 
     @CreationTimestamp
-    @Column(name="created_at", nullable = false)  // Convert to timestamp using java Date @CreationTimestamp, @UpdateTimestamp
+    @Column(name="created_at")
     private Date createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private Date updatedAt;
 
 }

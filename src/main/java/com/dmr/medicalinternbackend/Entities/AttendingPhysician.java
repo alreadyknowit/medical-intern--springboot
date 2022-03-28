@@ -15,24 +15,23 @@ public class AttendingPhysician {
     private int id;
 
     @Column(name = "Attending_name",nullable = false)
-    private String fullname;
+    private String attendingName;
 
     @Column(name = "Phone_no", nullable = false)
     private String phoneNo;
-
-/*
-    @OneToMany(mappedBy = "attending")
-    private List<Form> forms;
-*/
 
 
     @ManyToOne
     @JoinColumn(name = "Institute_id",nullable = false)
     private Institute institute;
 
-    @OneToMany(mappedBy = "attending", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "attending")
     @JsonIgnore
-    private List<Form> forms;
+    private List<PatientLogForm> patientLogForms;
+
+    @OneToMany(mappedBy = "attending")
+    @JsonIgnore
+    private List<ProcedureForm> procedureForms;
 
     @ManyToOne
     @JoinColumn(name = "Speciality_id", nullable = false)
