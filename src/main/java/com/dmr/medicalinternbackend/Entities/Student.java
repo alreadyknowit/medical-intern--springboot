@@ -25,11 +25,11 @@ public class Student {
     @Column(name="Oasis_id", nullable = false)
     private Long oasisID;
 
-    @OneToMany(mappedBy = "student")
+    @OneToMany(mappedBy = "student",fetch = FetchType.LAZY)
     @JsonIgnore
     private List<PatientLogForm> patientLogForms;
 
-    @OneToMany(mappedBy = "student")
+    @OneToMany(mappedBy = "student",fetch = FetchType.LAZY)
     @JsonIgnore
     private List<ProcedureForm> procedureForms;
 }

@@ -2,13 +2,15 @@ package com.dmr.medicalinternbackend.RestApi;
 
 import com.dmr.medicalinternbackend.Entities.PatientLogForm;
 import com.dmr.medicalinternbackend.Service.patientLog.IPatientLogService;
+import com.dmr.medicalinternbackend.requests.PatientLogDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/patient-log")
+@RequestMapping("/patient-logs")
 public class PatientLogController {
 
 private IPatientLogService formService;
@@ -19,14 +21,8 @@ private IPatientLogService formService;
 
     //insert a new form
     @PostMapping
-    public ResponseEntity<PatientLogForm> insertForm(@RequestBody PatientLogForm patientLogForm){
+    public ResponseEntity<PatientLogForm> insertForm(@RequestBody PatientLogDto patientLogForm){
         return new ResponseEntity<>(formService.insertForm(patientLogForm), HttpStatus.CREATED);
-    }
-
-    //get all forms
-    @GetMapping
-    public List<PatientLogForm> getAllForms(){
-        return this.formService.getAllForms();
     }
 
     //get form with specific id
@@ -38,46 +34,26 @@ private IPatientLogService formService;
     //update form info
     @PutMapping("{id}")
     public ResponseEntity<PatientLogForm> updateForm(@RequestBody PatientLogForm patientLogForm, @PathVariable("id") int id){
-
         return new ResponseEntity<>(formService.updateForm(patientLogForm, id), HttpStatus.OK);
     }
 
     @DeleteMapping("{id}")
     public void deleteForm(@PathVariable("id") int id){
         formService.deleteForm(id);
-
     }
+
     @DeleteMapping
     public void deleteAllForms(){
         formService.deleteAllForms();
     }
 
-    @GetMapping("/filter")
-    public ResponseEntity<List<PatientLogForm>> findByAttendingIdAndCoordinatorId(@RequestParam int aid, @RequestParam int cid){
+    @GetMapping
+    public ResponseEntity<List<PatientLogForm>> getStudentsForm(@RequestParam("studentId") Optional<Integer> studentId,
+                                                                @RequestParam("coordinatorId") Optional<Integer> coordinatorId,
+                                                                @RequestParam("attendingId") Optional<Integer> attendingId,
+                                                                @RequestParam("status") String status){
 
-        return new ResponseEntity<>(formService.findByAttendingIdAndCoordinatorId(aid,cid),HttpStatus.OK);
+        return formService.getFormsById(studentId,attendingId,coordinatorId,status);
     }
-
-
-
-
-  /*  @GetMapping("/filter")
-    public ResponseEntity<List<Form>> findByKayitNo(@RequestParam("kayitNo") String kayit){
-    return new ResponseEntity<>(formService.findByKayitNo(kayit),HttpStatus.OK);
-    }*/
-  /*  @GetMapping("/filterByKeyword")
-    public ResponseEntity<List<Form>> findByKayitNoContaining(@RequestParam String key){
-        return new ResponseEntity<>(formService.findByKayitNoContaining(key),HttpStatus.OK);
-    }
-*/
- /*   @GetMapping("/student/{id}")
-    public ResponseEntity<List<Form>> findByStudentId(@PathVariable int id){
-        return new ResponseEntity<>(formService.findByStudentId(id), HttpStatus.OK);
-    }*/
-/*    @GetMapping("/attendings")
-    public ResponseEntity<List<Form>> findByAttendingId(@RequestParam int attendingId){
-        return new ResponseEntity<>(formService.findByAttendingId(attendingId),HttpStatus.OK );
-    }*/
-
 
 }

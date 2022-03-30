@@ -1,20 +1,19 @@
 package com.dmr.medicalinternbackend.Service.patientLog;
 
 import com.dmr.medicalinternbackend.Entities.PatientLogForm;
+import com.dmr.medicalinternbackend.requests.PatientLogDto;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface IPatientLogService {
 
-    PatientLogForm insertForm(PatientLogForm patientLogForm);
-    List<PatientLogForm> getAllForms();
+    PatientLogForm insertForm(PatientLogDto formDto);
+    ResponseEntity<List<PatientLogForm>> getFormsById(Optional<Integer> id, Optional<Integer> attendingId, Optional<Integer> coordinatorId,String status);
     PatientLogForm getById(int id);
     PatientLogForm updateForm(PatientLogForm patientLogForm, int id);
     void deleteForm(int id);
     void deleteAllForms();
-/*    List<PatientLogForm> findByKayitNo(String kayit);
-    List<PatientLogForm> findByKayitNoContaining(String key);
-    List<PatientLogForm> findByStudentId(int id);
-    List<PatientLogForm> findByAttendingId(int id);*/
-    List<PatientLogForm> findByAttendingIdAndCoordinatorId(int aid, int cid);
+
 }

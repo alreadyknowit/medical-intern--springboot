@@ -35,7 +35,7 @@ public class ProcedureForm {
     @JoinColumn(name = "Coordinator_id", nullable = false)
     private Coordinator coordinator;
 
-    @Column(name = "tibbi_uyuglama")
+    @Column(name = "tibbi_uygulama")
     private String tibbiUygulama;
 
     @Column(name = "Etkilesim_turu", nullable = false)
@@ -44,9 +44,14 @@ public class ProcedureForm {
     @Column(name = "Gerceklestigi_ortam", nullable = false)
     private String gerceklestigiOrtam;
 
+    @Column(name = "status", nullable = false)
+    private String status;
+
     @CreationTimestamp
     @Column(name="created_at")
     private Date createdAt;
+
+
 
     @UpdateTimestamp
     @Column(name = "updated_at")

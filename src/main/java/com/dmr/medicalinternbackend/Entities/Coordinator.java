@@ -1,12 +1,15 @@
 package com.dmr.medicalinternbackend.Entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
-
 @Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name="coordinator")
 public class Coordinator {

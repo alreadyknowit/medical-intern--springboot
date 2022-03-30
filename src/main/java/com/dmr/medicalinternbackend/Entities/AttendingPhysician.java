@@ -39,5 +39,23 @@ public class AttendingPhysician {
 
 
 
+/*
 
+--homepage
+formData.setGerce(valueOrtam.getGerceklsestiğiOrtam());
+formData.setAttending(secielenobje.getAttending());
+
+DatabaseService.httpInsert(fromData);
+
+
+-- db service
+httpInsert(FormData form){
+
+http.post(
+"ortam": form.getOrtam(),
+"attending":form.getAtteninG();
+
+
+}
+ */
 }

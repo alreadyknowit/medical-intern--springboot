@@ -3,10 +3,7 @@ import com.dmr.medicalinternbackend.Entities.AttendingPhysician;
 import com.dmr.medicalinternbackend.Service.attending.InterfaceAttendingService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,8 +19,8 @@ public class AttendingsController {
     }
 
     @GetMapping
-    public List<AttendingPhysician> getAllAttending(){
-        return attendingService.getAllAttendingPhysicians();
+    public ResponseEntity<List<AttendingPhysician>> getAttendings(@RequestParam("specialityId") int id){
+        return attendingService.getAllAttendingPhysicians(id);
     }
 
     @GetMapping("{id}")

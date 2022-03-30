@@ -4,6 +4,9 @@ import com.dmr.medicalinternbackend.DAO.AttendingDataAccess;
 import com.dmr.medicalinternbackend.Entities.AttendingPhysician;
 import com.dmr.medicalinternbackend.Exception.ResourceNotFoundException;
 import lombok.AllArgsConstructor;
+import org.apache.coyote.Response;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,7 +16,7 @@ import java.util.List;
 public class AttendingService implements InterfaceAttendingService{
 
 
-    AttendingDataAccess attendingDataAccess;
+    private AttendingDataAccess attendingDataAccess;
 
     @Override
     public AttendingPhysician getAttendingById(int id) {
@@ -23,7 +26,7 @@ public class AttendingService implements InterfaceAttendingService{
     }
 
     @Override
-    public List<AttendingPhysician> getAllAttendingPhysicians() {
-        return attendingDataAccess.findAll();
+    public ResponseEntity<List<AttendingPhysician>> getAllAttendingPhysicians(int id) {
+        return new ResponseEntity<>(attendingDataAccess.findAllBySpecialityId(id), HttpStatus.OK);
     }
 }

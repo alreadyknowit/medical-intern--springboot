@@ -1,16 +1,21 @@
 package com.dmr.medicalinternbackend.Service.procedure;
 
 import com.dmr.medicalinternbackend.Entities.ProcedureForm;
+import com.dmr.medicalinternbackend.requests.ProcedureDto;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface IProcedureService {
 
-    List<ProcedureForm> findAll();
+
 
     ProcedureForm getProcedureById(int id);
 
     ProcedureForm updateProcedureForm(ProcedureForm procedureForm, int id);
 
-    ProcedureForm insertProcedureForm(ProcedureForm form);
+    ProcedureForm insertProcedureForm(ProcedureDto form);
+
+    ResponseEntity<List<ProcedureForm>> getFormsById(Optional<Integer> id, Optional<Integer> attendingId, Optional<Integer> coordinatorId,String status);
 }
