@@ -28,7 +28,7 @@ _main directory_: `/api/v1/`
 |      **PUT** |                       /patient-logs/**{id}**                       |     JSON Object     | Update a patient log                                                                                                              |
 |      **PUT** |                        /procedures/**{id}**                        |     JSON Object     | Update a procedure form                                                                                                           |
 
-##RESPONSE
+## RESPONSE
 
 ```
  -- .../api/v1/procedures?studentId=2&status=rejected --
