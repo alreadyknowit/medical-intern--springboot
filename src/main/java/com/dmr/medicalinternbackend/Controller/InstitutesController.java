@@ -16,7 +16,7 @@ import java.util.Optional;
 @RequestMapping("/institutes")
 public class InstitutesController {
 
-    IInstituteService instituteService;
+    private final IInstituteService instituteService;
 
 
     public InstitutesController(IInstituteService instituteService) {

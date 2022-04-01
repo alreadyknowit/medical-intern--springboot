@@ -4,7 +4,7 @@ import com.dmr.medicalinternbackend.Entities.Coordinator;
 
 import java.util.List;
 
-public interface InterfaceCoordinatorService {
+public interface ICoordinatorService {
 
     List<Coordinator> getAllCoordinators();
     Coordinator getCoordinatorById(int id);

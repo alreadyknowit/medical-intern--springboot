@@ -10,7 +10,7 @@ import java.util.List;
 
 @Service
 
-public class StudentService implements InterfaceStudentService  {
+public class StudentService implements IStudentService {
 
     private final StudentDataAccess studentDataAccess;
 

@@ -14,7 +14,7 @@ import java.util.Optional;
 @RequestMapping("/procedures")
 public class ProceduresController {
 
-    IProcedureService procedureService;
+        private final IProcedureService procedureService;
 
     public ProceduresController(IProcedureService procedureService) {
         this.procedureService = procedureService;

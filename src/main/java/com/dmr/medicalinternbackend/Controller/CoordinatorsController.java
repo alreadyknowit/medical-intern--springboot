@@ -1,7 +1,7 @@
 package com.dmr.medicalinternbackend.Controller;
 
 import com.dmr.medicalinternbackend.Entities.Coordinator;
-import com.dmr.medicalinternbackend.Service.coordinator.InterfaceCoordinatorService;
+import com.dmr.medicalinternbackend.Service.coordinator.ICoordinatorService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,9 +15,9 @@ import java.util.List;
 @RequestMapping("/coordinators")
 public class CoordinatorsController {
 
-    InterfaceCoordinatorService coordinatorService;
+    private final ICoordinatorService coordinatorService;
 
-    public CoordinatorsController(InterfaceCoordinatorService coordinatorService) {
+    public CoordinatorsController(ICoordinatorService coordinatorService) {
         this.coordinatorService = coordinatorService;
     }
 

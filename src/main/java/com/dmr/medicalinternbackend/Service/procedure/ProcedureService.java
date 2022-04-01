@@ -17,16 +17,16 @@ import java.util.Optional;
 public class ProcedureService implements IProcedureService{
 
 
-    private final ProcedureFormDao procedureFormDao;
+    private final ProcedureFormDataAccess procedureFormDataAccess;
     private final StudentDataAccess studentDataAccess;
     private final CoordinatorDataAccess coordinatorDataAccess;
     private final AttendingDataAccess attendingDataAccess;
     private final SpecialityDataAccess specialityDataAccess;
 
-    public ProcedureService(ProcedureFormDao procedureFormDao, StudentDataAccess studentDataAccess,
+    public ProcedureService(ProcedureFormDataAccess procedureFormDataAccess, StudentDataAccess studentDataAccess,
                             CoordinatorDataAccess coordinatorDataAccess, AttendingDataAccess attendingDataAccess,
                             SpecialityDataAccess specialityDataAccess) {
-        this.procedureFormDao = procedureFormDao;
+        this.procedureFormDataAccess = procedureFormDataAccess;
         this.studentDataAccess = studentDataAccess;
         this.coordinatorDataAccess = coordinatorDataAccess;
         this.attendingDataAccess = attendingDataAccess;
@@ -36,13 +36,13 @@ public class ProcedureService implements IProcedureService{
 
     @Override
     public ProcedureForm getProcedureById(int id) {
-       return procedureFormDao.findById(id).orElseThrow(()->new ResourceNotFoundException("Procedure Form","ID",id));
+       return procedureFormDataAccess.findById(id).orElseThrow(()->new ResourceNotFoundException("Procedure Form","ID",id));
     }
 
     @Override
     public ProcedureForm updateProcedureForm(ProcedureForm procedureForm, int id) {
 
-        ProcedureForm formMaybe =procedureFormDao.findById(id).orElseThrow(()->
+        ProcedureForm formMaybe = procedureFormDataAccess.findById(id).orElseThrow(()->
                 new ResourceNotFoundException("Procedure Form","ID", id));
 
         formMaybe.setEtkilesimTuru(procedureForm.getEtkilesimTuru());
@@ -51,7 +51,7 @@ public class ProcedureService implements IProcedureService{
         formMaybe.setCoordinator(procedureForm.getCoordinator());
         formMaybe.setStudent(procedureForm.getStudent());
         formMaybe.setTibbiUygulama(procedureForm.getTibbiUygulama());
-        procedureFormDao.save(procedureForm);
+        procedureFormDataAccess.save(procedureForm);
         return procedureForm;
     }
 
@@ -76,7 +76,7 @@ public class ProcedureService implements IProcedureService{
         form.setCoordinator(coordinator);
         form.setAttending(attendingPhysician);
         form.setSpeciality(speciality);
-        return procedureFormDao.save(form);
+        return procedureFormDataAccess.save(form);
     }
 
     @Override
@@ -84,11 +84,11 @@ public class ProcedureService implements IProcedureService{
 
         //TODO:Switch case kullanılacak
         if(studentId.isPresent())
-            return new ResponseEntity<>(procedureFormDao.findAllByStudentIdAndStatus(studentId.get(),status), HttpStatus.OK);
+            return new ResponseEntity<>(procedureFormDataAccess.findAllByStudentIdAndStatus(studentId.get(),status), HttpStatus.OK);
         else if(coordinatorId.isPresent())
-            return new ResponseEntity<>(procedureFormDao.findAllByCoordinatorIdAndStatus(coordinatorId.get(),status),HttpStatus.OK);
+            return new ResponseEntity<>(procedureFormDataAccess.findAllByCoordinatorIdAndStatus(coordinatorId.get(),status),HttpStatus.OK);
         else if(attendingId.isPresent())
-            return new ResponseEntity<>(procedureFormDao.findAllByAttendingIdAndStatus(attendingId.get(),status),HttpStatus.OK);
+            return new ResponseEntity<>(procedureFormDataAccess.findAllByAttendingIdAndStatus(attendingId.get(),status),HttpStatus.OK);
 
         throw new ResourceNotFoundException("Patient Logs", "coordinator id",coordinatorId);
     }

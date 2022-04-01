@@ -1,7 +1,7 @@
 package com.dmr.medicalinternbackend.Controller;
 
 import com.dmr.medicalinternbackend.Entities.Student;
-import com.dmr.medicalinternbackend.Service.student.InterfaceStudentService;
+import com.dmr.medicalinternbackend.Service.student.IStudentService;
 import com.dmr.medicalinternbackend.requests.DashboardDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,9 +13,9 @@ import java.util.List;
 @RequestMapping("/students")
 public class StudentsController {
 
-    InterfaceStudentService studentService;
+    private final IStudentService studentService;
 
-    public StudentsController(InterfaceStudentService studentService) {
+    public StudentsController(IStudentService studentService) {
         this.studentService = studentService;
     }
 

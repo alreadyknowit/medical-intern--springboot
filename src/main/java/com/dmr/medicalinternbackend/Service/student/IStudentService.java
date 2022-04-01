@@ -5,7 +5,7 @@ import com.dmr.medicalinternbackend.requests.DashboardDto;
 
 import java.util.List;
 
-public interface InterfaceStudentService {
+public interface IStudentService {
 
     Student getStudentById(int id);
     List<Student> getAllStudents();

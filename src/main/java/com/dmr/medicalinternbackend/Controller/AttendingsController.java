@@ -12,7 +12,7 @@ import java.util.List;
 public class AttendingsController {
 
 
-    IAttendingPhysician attendingService;
+    private final IAttendingPhysician attendingService;
 
     public AttendingsController(IAttendingPhysician attendingService) {
         this.attendingService = attendingService;
