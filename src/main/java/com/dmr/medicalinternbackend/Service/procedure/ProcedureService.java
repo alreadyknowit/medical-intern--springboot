@@ -1,13 +1,10 @@
 package com.dmr.medicalinternbackend.Service.procedure;
 
-import com.dmr.medicalinternbackend.DAO.AttendingDataAccess;
-import com.dmr.medicalinternbackend.DAO.CoordinatorDataAccess;
-import com.dmr.medicalinternbackend.DAO.ProcedureFormDao;
-import com.dmr.medicalinternbackend.DAO.StudentDataAccess;
+import com.dmr.medicalinternbackend.DAO.*;
 import com.dmr.medicalinternbackend.Entities.*;
 import com.dmr.medicalinternbackend.Exception.ResourceNotFoundException;
 import com.dmr.medicalinternbackend.requests.ProcedureDto;
-import org.apache.catalina.User;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -20,18 +17,21 @@ import java.util.Optional;
 public class ProcedureService implements IProcedureService{
 
 
-    private ProcedureFormDao procedureFormDao;
-    private StudentDataAccess studentDataAccess;
-    private CoordinatorDataAccess coordinatorDataAccess;
-    private AttendingDataAccess attendingDataAccess;
+    private final ProcedureFormDao procedureFormDao;
+    private final StudentDataAccess studentDataAccess;
+    private final CoordinatorDataAccess coordinatorDataAccess;
+    private final AttendingDataAccess attendingDataAccess;
+    private final SpecialityDataAccess specialityDataAccess;
 
-    public ProcedureService(ProcedureFormDao procedureFormDao, StudentDataAccess studentDataAccess, CoordinatorDataAccess coordinatorDataAccess, AttendingDataAccess attendingDataAccess) {
+    public ProcedureService(ProcedureFormDao procedureFormDao, StudentDataAccess studentDataAccess,
+                            CoordinatorDataAccess coordinatorDataAccess, AttendingDataAccess attendingDataAccess,
+                            SpecialityDataAccess specialityDataAccess) {
         this.procedureFormDao = procedureFormDao;
         this.studentDataAccess = studentDataAccess;
         this.coordinatorDataAccess = coordinatorDataAccess;
         this.attendingDataAccess = attendingDataAccess;
+        this.specialityDataAccess = specialityDataAccess;
     }
-
 
 
     @Override
@@ -61,17 +61,21 @@ public class ProcedureService implements IProcedureService{
         form.setTibbiUygulama(formDto.getTibbiUygulama());
         form.setGerceklestigiOrtam(formDto.getGerceklestigiOrtam());
         form.setEtkilesimTuru(formDto.getEtkilesimTuru());
-        form.setStatus(form.getStatus());
-         Student student=studentDataAccess.findById(formDto.getStudentId()).orElseThrow(()->
-                 new ResourceNotFoundException("Student", "ID", formDto.getStudentId()));
+        form.setStatus(formDto.getStatus());
+
         AttendingPhysician attendingPhysician =attendingDataAccess.findById(formDto.getAttendingId()).orElseThrow(()->
                 new ResourceNotFoundException("Attending", "ID",formDto.getAttendingId()));
+        Student student=studentDataAccess.findById(formDto.getStudentId()).orElseThrow(()->
+                new ResourceNotFoundException("Student", "ID", formDto.getStudentId()));
         Coordinator coordinator = coordinatorDataAccess.findById(formDto.getCoordinatorId()).orElseThrow(()->
                 new ResourceNotFoundException("Coordinator", "Id", formDto.getCoordinatorId()));
+        Speciality speciality =specialityDataAccess.findById(formDto.getSpecialityId()).orElseThrow(()->
+                new ResourceNotFoundException("Speciality", "Id", formDto.getSpecialityId()));
+
         form.setStudent(student);
         form.setCoordinator(coordinator);
         form.setAttending(attendingPhysician);
-
+        form.setSpeciality(speciality);
         return procedureFormDao.save(form);
     }
 

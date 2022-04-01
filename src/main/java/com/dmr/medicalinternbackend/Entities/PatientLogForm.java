@@ -21,13 +21,17 @@ public class PatientLogForm {
     @JoinColumn(name = "Student_id", nullable = false)
     private Student student;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Attending_id", nullable = false)
     private AttendingPhysician attending;
 
     @ManyToOne
     @JoinColumn(name = "Coordinator_id", nullable = false)
     private Coordinator coordinator;
+
+    @ManyToOne
+    @JoinColumn(name = "Speciality_id", nullable = false)
+    private Speciality speciality;
 
     @Column(name = "Kayit_no", nullable = false)
     private String kayitNo;

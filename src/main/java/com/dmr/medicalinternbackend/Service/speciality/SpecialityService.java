@@ -8,10 +8,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
 @Service
 public class SpecialityService implements ISpecialityService{
 
-    private SpecialityDataAccess specialityDataAccess;
+    private final SpecialityDataAccess specialityDataAccess;
 
     public SpecialityService(SpecialityDataAccess specialityDataAccess) {
         this.specialityDataAccess = specialityDataAccess;
@@ -19,6 +20,7 @@ public class SpecialityService implements ISpecialityService{
 
     @Override
     public ResponseEntity<List<Speciality>> getSpecialityByCourseId(int id) {
-        return new ResponseEntity<>(specialityDataAccess.findAllByCourseId(id), HttpStatus.OK);
+
+                return new ResponseEntity<>(specialityDataAccess.findAllByCourseId(id), HttpStatus.OK);
     }
 }

@@ -1,12 +1,16 @@
 package com.dmr.medicalinternbackend.Entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
 
-@Data
+@Setter
+@Getter
 @Entity
 @Table(name = "attending")
 public class AttendingPhysician {
@@ -19,7 +23,6 @@ public class AttendingPhysician {
 
     @Column(name = "Phone_no", nullable = false)
     private String phoneNo;
-
 
     @ManyToOne
     @JoinColumn(name = "Institute_id",nullable = false)
@@ -36,26 +39,4 @@ public class AttendingPhysician {
     @ManyToOne
     @JoinColumn(name = "Speciality_id", nullable = false)
     private Speciality speciality;
-
-
-
-/*
-
---homepage
-formData.setGerce(valueOrtam.getGerceklsestiğiOrtam());
-formData.setAttending(secielenobje.getAttending());
-
-DatabaseService.httpInsert(fromData);
-
-
--- db service
-httpInsert(FormData form){
-
-http.post(
-"ortam": form.getOrtam(),
-"attending":form.getAtteninG();
-
-
-}
- */
 }

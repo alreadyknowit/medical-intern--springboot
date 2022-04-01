@@ -6,8 +6,8 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-public interface InterfaceAttendingService {
+public interface IAttendingPhysician {
 
     AttendingPhysician getAttendingById(int id);
-    ResponseEntity<List<AttendingPhysician>> getAllAttendingPhysicians(int id);
+    ResponseEntity<List<AttendingPhysician>> getAttendingPhysiciansBySpeciality(int id);
 }

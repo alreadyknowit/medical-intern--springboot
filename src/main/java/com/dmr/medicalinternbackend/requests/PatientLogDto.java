@@ -11,11 +11,11 @@ public class PatientLogDto {
     private int coordinatorId;
     private int studentId;
     private int attendingId;
+    private int specialityId;
     private String kayitNo;
     private String cinsiyet;
     private String stajTuru;
     private int yas;
-
     private String sikayet;
     private String ayiriciTani;
     private String kesinTani;

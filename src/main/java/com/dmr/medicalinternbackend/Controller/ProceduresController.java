@@ -1,4 +1,4 @@
-package com.dmr.medicalinternbackend.RestApi;
+package com.dmr.medicalinternbackend.Controller;
 
 import com.dmr.medicalinternbackend.Entities.ProcedureForm;
 import com.dmr.medicalinternbackend.Service.procedure.IProcedureService;

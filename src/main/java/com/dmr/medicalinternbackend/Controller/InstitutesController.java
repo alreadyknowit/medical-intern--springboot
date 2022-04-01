@@ -1,4 +1,4 @@
-package com.dmr.medicalinternbackend.RestApi;
+package com.dmr.medicalinternbackend.Controller;
 
 import com.dmr.medicalinternbackend.Entities.Institute;
 import com.dmr.medicalinternbackend.Service.institute.IInstituteService;
@@ -14,12 +14,12 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/institutes")
-public class InstituteController {
+public class InstitutesController {
 
     IInstituteService instituteService;
 
 
-    public InstituteController(IInstituteService instituteService) {
+    public InstitutesController(IInstituteService instituteService) {
         this.instituteService =instituteService ;
     }
 

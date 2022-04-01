@@ -1,4 +1,4 @@
-package com.dmr.medicalinternbackend.RestApi;
+package com.dmr.medicalinternbackend.Controller;
 
 import com.dmr.medicalinternbackend.Entities.PatientLogForm;
 import com.dmr.medicalinternbackend.Service.patientLog.IPatientLogService;
@@ -11,11 +11,11 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/patient-logs")
-public class PatientLogController {
+public class PatientLogsController {
 
-private IPatientLogService formService;
+    private final IPatientLogService formService;
 
-    public PatientLogController(IPatientLogService formService) {
+    public PatientLogsController(IPatientLogService formService) {
         this.formService = formService;
     }
 

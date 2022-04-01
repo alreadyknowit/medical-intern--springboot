@@ -15,5 +15,7 @@ public class ProcedureDto {
     private int studentId;
     private int attendingId;
     private int coordinatorId;
+    private int specialityId;
     private String status;
+
 }

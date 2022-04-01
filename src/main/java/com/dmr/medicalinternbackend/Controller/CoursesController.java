@@ -1,4 +1,4 @@
-package com.dmr.medicalinternbackend.RestApi;
+package com.dmr.medicalinternbackend.Controller;
 
 import com.dmr.medicalinternbackend.Entities.Course;
 import com.dmr.medicalinternbackend.Service.course.ICourseService;
@@ -10,11 +10,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/courses")
-public class CourseController {
+public class CoursesController {
 
-    private ICourseService courseService;
+    private final ICourseService courseService;
 
-    public CourseController(ICourseService courseService) {
+    public CoursesController(ICourseService courseService) {
         this.courseService = courseService;
     }
 

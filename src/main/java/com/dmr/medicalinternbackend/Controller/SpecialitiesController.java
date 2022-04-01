@@ -1,4 +1,4 @@
-package com.dmr.medicalinternbackend.RestApi;
+package com.dmr.medicalinternbackend.Controller;
 
 import com.dmr.medicalinternbackend.Entities.Speciality;
 import com.dmr.medicalinternbackend.Service.speciality.ISpecialityService;
@@ -12,11 +12,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/specialities")
-public class SpecialityController {
+public class SpecialitiesController {
 
-    private ISpecialityService specialityService;
+    private final ISpecialityService specialityService;
 
-    public SpecialityController(ISpecialityService specialityService) {
+    public SpecialitiesController(ISpecialityService specialityService) {
         this.specialityService = specialityService;
     }
 
