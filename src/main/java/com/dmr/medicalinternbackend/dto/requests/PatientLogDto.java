@@ -1,4 +1,4 @@
-package com.dmr.medicalinternbackend.requests;
+package com.dmr.medicalinternbackend.dto.requests;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -14,7 +14,6 @@ public class PatientLogDto {
     private int specialityId;
     private String kayitNo;
     private String cinsiyet;
-    private String stajTuru;
     private int yas;
     private String sikayet;
     private String ayiriciTani;
@@ -24,6 +23,5 @@ public class PatientLogDto {
     private String kapsam;
     private String gerceklestigiOrtam;
     private String status;
-
 
 }

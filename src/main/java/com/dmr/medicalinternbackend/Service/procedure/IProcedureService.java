@@ -1,7 +1,7 @@
 package com.dmr.medicalinternbackend.Service.procedure;
 
 import com.dmr.medicalinternbackend.Entities.ProcedureForm;
-import com.dmr.medicalinternbackend.requests.ProcedureDto;
+import com.dmr.medicalinternbackend.dto.requests.ProcedureDto;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;

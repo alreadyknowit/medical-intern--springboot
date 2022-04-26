@@ -1,12 +1,17 @@
 package com.dmr.medicalinternbackend.Entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
-@Data
+@NoArgsConstructor
+@Setter
+@Getter
 @Entity
 @Table(name = "student")
 public class Student {
@@ -18,9 +23,8 @@ public class Student {
     @Column(name = "Student_name",nullable = false)
     private String name;
 
-    @ManyToOne
-    @JoinColumn(nullable = false,name = "Course_id")
-    private Course course;
+    @ManyToMany
+      private Set<Course> courses;
 
     @Column(name="Oasis_id", nullable = false)
     private Long oasisID;
@@ -32,4 +36,6 @@ public class Student {
     @OneToMany(mappedBy = "student",fetch = FetchType.LAZY)
     @JsonIgnore
     private List<ProcedureForm> procedureForms;
+
+
 }

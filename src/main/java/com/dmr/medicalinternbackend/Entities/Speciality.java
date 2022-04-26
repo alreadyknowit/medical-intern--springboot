@@ -7,13 +7,9 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
-
-@Setter
-@Getter
 @Entity
 @Table(name = "speciality")
 public class Speciality {
-
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -40,5 +36,71 @@ public class Speciality {
     @OneToMany(mappedBy = "speciality")
     @JsonIgnore
     private List<Diagnosis> diagnoses;
+
+    private int total;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public List<AttendingPhysician> getAttendings() {
+        return attendings;
+    }
+
+    public void setAttendings(List<AttendingPhysician> attendings) {
+        this.attendings = attendings;
+    }
+
+    public List<ProcedureForm> getProcedureForms() {
+        return procedureForms;
+    }
+
+    public void setProcedureForms(List<ProcedureForm> procedureForms) {
+        this.procedureForms = procedureForms;
+    }
+
+    public List<PatientLogForm> getPatientLogForms() {
+        return patientLogForms;
+    }
+
+    public void setPatientLogForms(List<PatientLogForm> patientLogForms) {
+        this.patientLogForms = patientLogForms;
+    }
+
+    public List<Diagnosis> getDiagnoses() {
+        return diagnoses;
+    }
+
+    public void setDiagnoses(List<Diagnosis> diagnoses) {
+        this.diagnoses = diagnoses;
+    }
+
+    public int getTotal() {
+        return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
 }
 

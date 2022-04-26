@@ -2,7 +2,7 @@ package com.dmr.medicalinternbackend.Controller;
 
 import com.dmr.medicalinternbackend.Entities.ProcedureForm;
 import com.dmr.medicalinternbackend.Service.procedure.IProcedureService;
-import com.dmr.medicalinternbackend.requests.ProcedureDto;
+import com.dmr.medicalinternbackend.dto.requests.ProcedureDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

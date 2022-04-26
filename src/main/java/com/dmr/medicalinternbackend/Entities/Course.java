@@ -5,9 +5,9 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
-@Setter
-@Getter
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -25,7 +25,49 @@ public class Course {
     @JsonIgnore
     List<Speciality> specialities;
 
-    @OneToMany(mappedBy = "course")
+    @ManyToMany(mappedBy = "courses")
     @JsonIgnore
-    List<Student> students;
+    Set<Student> students;
+
+    private int total;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Speciality> getSpecialities() {
+        return specialities;
+    }
+
+    public void setSpecialities(List<Speciality> specialities) {
+        this.specialities = specialities;
+    }
+
+    public Set<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(Set<Student> students) {
+        this.students = students;
+    }
+
+    public int getTotal() {
+        return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
+    }
 }

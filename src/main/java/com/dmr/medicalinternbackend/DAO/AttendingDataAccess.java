@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface AttendingDataAccess extends JpaRepository<AttendingPhysician, Integer> {
 
-    List<AttendingPhysician> findAllBySpecialityId(int id);
+    List<AttendingPhysician> findBySpecialityId(int specialityId);
 }

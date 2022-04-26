@@ -2,7 +2,7 @@ package com.dmr.medicalinternbackend.Controller;
 
 import com.dmr.medicalinternbackend.Entities.PatientLogForm;
 import com.dmr.medicalinternbackend.Service.patientLog.IPatientLogService;
-import com.dmr.medicalinternbackend.requests.PatientLogDto;
+import com.dmr.medicalinternbackend.dto.requests.PatientLogDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,8 +33,8 @@ public class PatientLogsController {
 
     //update form info
     @PutMapping("{id}")
-    public ResponseEntity<PatientLogForm> updateForm(@RequestBody PatientLogForm patientLogForm, @PathVariable("id") int id){
-        return new ResponseEntity<>(formService.updateForm(patientLogForm, id), HttpStatus.OK);
+    public ResponseEntity<PatientLogForm> updateForm(@RequestBody PatientLogDto patientLogDto, @PathVariable("id") int id){
+        return new ResponseEntity<>(formService.updateForm(patientLogDto, id), HttpStatus.OK);
     }
 
     @DeleteMapping("{id}")
@@ -47,6 +47,7 @@ public class PatientLogsController {
         formService.deleteAllForms();
     }
 
+    // TODO: sending wrong information
     @GetMapping
     public ResponseEntity<List<PatientLogForm>> getStudentsForm(@RequestParam("studentId") Optional<Integer> studentId,
                                                                 @RequestParam("coordinatorId") Optional<Integer> coordinatorId,

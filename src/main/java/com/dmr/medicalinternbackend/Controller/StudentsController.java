@@ -2,7 +2,7 @@ package com.dmr.medicalinternbackend.Controller;
 
 import com.dmr.medicalinternbackend.Entities.Student;
 import com.dmr.medicalinternbackend.Service.student.IStudentService;
-import com.dmr.medicalinternbackend.requests.DashboardDto;
+import com.dmr.medicalinternbackend.dto.requests.DashboardDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -3,13 +3,12 @@ package com.dmr.medicalinternbackend.Service.student;
 import com.dmr.medicalinternbackend.DAO.StudentDataAccess;
 import com.dmr.medicalinternbackend.Entities.Student;
 import com.dmr.medicalinternbackend.Exception.ResourceNotFoundException;
-import com.dmr.medicalinternbackend.requests.DashboardDto;
+import com.dmr.medicalinternbackend.dto.requests.DashboardDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-
 public class StudentService implements IStudentService {
 
     private final StudentDataAccess studentDataAccess;
@@ -31,7 +30,7 @@ public class StudentService implements IStudentService {
 
     @Override
     public int getNumberOfProcedures(int studentId) {
-        Student student = studentDataAccess.findById(studentId).orElseThrow(()->
+        studentDataAccess.findById(studentId).orElseThrow(()->
                 new ResourceNotFoundException("Student", "Id", studentId));
         return studentDataAccess.findNumberOfProcedures(studentId);
     }
@@ -50,12 +49,11 @@ public class StudentService implements IStudentService {
         Student student = studentDataAccess.findById(studentId).orElseThrow(()->
                 new ResourceNotFoundException("Student", "Id", studentId));
         DashboardDto dashboardDto = new DashboardDto();
-        dashboardDto.setCourseName(student.getCourse().getName());
+        dashboardDto.setCourses(student.getCourses());
         dashboardDto.setOasisId(student.getOasisID());
         dashboardDto.setId(studentId);
         dashboardDto.setNoPatientLogs(getNumberOfPatientLogs(studentId));
         dashboardDto.setNoProcedures(getNumberOfProcedures(studentId));
-        dashboardDto.setTotal(40);
 
         return dashboardDto;
     }

@@ -3,7 +3,7 @@ package com.dmr.medicalinternbackend.Service.procedure;
 import com.dmr.medicalinternbackend.DAO.*;
 import com.dmr.medicalinternbackend.Entities.*;
 import com.dmr.medicalinternbackend.Exception.ResourceNotFoundException;
-import com.dmr.medicalinternbackend.requests.ProcedureDto;
+import com.dmr.medicalinternbackend.dto.requests.ProcedureDto;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,4 +1,5 @@
 package com.dmr.medicalinternbackend.Entities;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -22,6 +23,7 @@ public class PatientLogForm {
     private Student student;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JoinColumn(name = "Attending_id", nullable = false)
     private AttendingPhysician attending;
 
@@ -36,8 +38,6 @@ public class PatientLogForm {
     @Column(name = "Kayit_no", nullable = false)
     private String kayitNo;
 
-    @Column(name = "Staj_turu", nullable = false)
-    private String stajTuru;
 
     @Column(name = "Yas", nullable = false)
     private int yas;

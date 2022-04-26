@@ -3,9 +3,7 @@ package com.dmr.medicalinternbackend.Service.patientLog;
 import com.dmr.medicalinternbackend.DAO.*;
 import com.dmr.medicalinternbackend.Entities.*;
 import com.dmr.medicalinternbackend.Exception.ResourceNotFoundException;
-import com.dmr.medicalinternbackend.requests.PatientLogDto;
-import lombok.AllArgsConstructor;
-
+import com.dmr.medicalinternbackend.dto.requests.PatientLogDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -37,7 +35,6 @@ public class PatientLogService implements IPatientLogService {
     @Override
     public PatientLogForm insertForm(PatientLogDto formDto) {
         PatientLogForm form = new PatientLogForm();
-
         Student student = studentDataAccess.findById(formDto.getStudentId()).orElseThrow(() ->
                 new ResourceNotFoundException("Student", "ID", formDto.getStudentId()));
         AttendingPhysician attendingPhysician = attendingDataAccess.findById(formDto.getAttendingId()).orElseThrow(() ->
@@ -56,7 +53,6 @@ public class PatientLogService implements IPatientLogService {
         form.setStatus(formDto.getStatus());
         form.setKayitNo(formDto.getKayitNo());
         form.setCinsiyet(formDto.getCinsiyet());
-        form.setStajTuru(formDto.getStajTuru());
         form.setYas(formDto.getYas());
         form.setSikayet(formDto.getSikayet());
         form.setAyiriciTani(formDto.getAyiriciTani());
@@ -70,18 +66,27 @@ public class PatientLogService implements IPatientLogService {
     }
 
     @Override
+    @SuppressWarnings({"OptionalUsedAsFieldOrParameterType", "ConstantConditions"})
     public ResponseEntity<List<PatientLogForm>> getFormsById(Optional<Integer> studentId, Optional<Integer> attendingId,
                                                              Optional<Integer> coordinatorId, String status) {
-
         //TODO:There is a bug use switch-case
         if (studentId.isPresent())
-            return new ResponseEntity<>(patientLogDataAccess.findAllByStudentIdAndStatus(studentId.get(), status), HttpStatus.OK);
+            return new ResponseEntity<>(patientLogDataAccess.findByStudentIdAndStatus(studentId.get(), status), HttpStatus.OK);
         else if (coordinatorId.isPresent())
             return new ResponseEntity<>(patientLogDataAccess.findAllByCoordinatorIdAndStatus(coordinatorId.get(), status), HttpStatus.OK);
         else if (attendingId.isPresent())
             return new ResponseEntity<>(patientLogDataAccess.findAllByAttendingIdAndStatus(attendingId.get(), status), HttpStatus.OK);
+        else if(studentId.isPresent() && attendingId.isPresent())
+            return new ResponseEntity<>(patientLogDataAccess.findAllByStudentIdAndAttendingIdAndStatus(studentId.get(),attendingId.get(), status), HttpStatus.OK);
+        else if(studentId.isPresent() && coordinatorId.isPresent())
+            return new ResponseEntity<>(patientLogDataAccess.findAllByStudentIdAndCoordinatorIdAndStatus(studentId.get(),coordinatorId.get(), status), HttpStatus.OK);
+        else if(attendingId.isPresent() & coordinatorId.isPresent())
+            return new ResponseEntity<>(patientLogDataAccess.findAllByAttendingIdAndCoordinatorIdAndStatus(attendingId.get(),coordinatorId.get(), status), HttpStatus.OK);
+        else if(studentId.isPresent() && coordinatorId.isPresent() && attendingId.isPresent())
+            return new ResponseEntity<>(patientLogDataAccess.findAllByStudentIdAndAttendingIdAndCoordinatorIdAndStatus(studentId.get(), attendingId.get(),coordinatorId.get(), status), HttpStatus.OK);
+        else
+            throw new ResourceNotFoundException("Patient Logs", "coordinator id", coordinatorId);
 
-        throw new ResourceNotFoundException("Patient Logs", "coordinator id", coordinatorId);
     }
 
 
@@ -93,29 +98,38 @@ public class PatientLogService implements IPatientLogService {
 
 
     }
-
+        //TODO: test the method
+    @SuppressWarnings("DuplicatedCode")
     @Override
-    public PatientLogForm updateForm(PatientLogForm patientLogForm, int id) {
+    public PatientLogForm updateForm(PatientLogDto patientLogDto,int id) {
 
-        //TODO: not working probably
-        PatientLogForm patientLogFormMaybe = patientLogDataAccess.findById(id).orElseThrow(() -> new ResourceNotFoundException("Form", "ID", id));
-        patientLogFormMaybe.setCinsiyet(patientLogForm.getCinsiyet());
-        patientLogFormMaybe.setAyiriciTani(patientLogForm.getAyiriciTani());
-        patientLogFormMaybe.setEtkilesimTuru(patientLogForm.getEtkilesimTuru());
-        patientLogFormMaybe.setKapsam(patientLogForm.getKapsam());
-        patientLogFormMaybe.setGerceklestigiOrtam(patientLogForm.getGerceklestigiOrtam());
-        patientLogFormMaybe.setKayitNo(patientLogForm.getKayitNo());
-        patientLogFormMaybe.setKesinTani(patientLogForm.getKesinTani());
-        patientLogFormMaybe.setSikayet(patientLogForm.getSikayet());
-        patientLogFormMaybe.setStajTuru(patientLogForm.getStajTuru());
-        patientLogFormMaybe.setStatus(patientLogForm.getStatus());
-        patientLogFormMaybe.setTedaviYontemi(patientLogForm.getTedaviYontemi());
-        patientLogFormMaybe.setYas(patientLogForm.getYas());
-        patientLogFormMaybe.setAttending(patientLogForm.getAttending());
-        patientLogFormMaybe.setStudent(patientLogForm.getStudent());
-        patientLogFormMaybe.setCoordinator(patientLogForm.getCoordinator());
+        AttendingPhysician attendingPhysician = attendingDataAccess.findById(patientLogDto.getAttendingId()).orElseThrow(() ->
+                new ResourceNotFoundException("Attending", "ID", patientLogDto.getAttendingId()));
+        Student student = studentDataAccess.findById(patientLogDto.getStudentId()).orElseThrow(() ->
+                new ResourceNotFoundException("Student", "ID", patientLogDto.getStudentId()));
+        Coordinator coordinator = coordinatorDataAccess.findById(patientLogDto.getCoordinatorId()).orElseThrow(() ->
+                new ResourceNotFoundException("Coordinator", "Id", patientLogDto.getCoordinatorId()));
+        Speciality speciality = specialityDataAccess.findById(patientLogDto.getSpecialityId()).orElseThrow(() ->
+                new ResourceNotFoundException("Speciality", "Id", patientLogDto.getSpecialityId()));
+        PatientLogForm patientLogFormMaybe = patientLogDataAccess.findById(patientLogDto.getId()).orElseThrow(() ->
+                new ResourceNotFoundException("Form", "ID", patientLogDto.getId()));
+        patientLogFormMaybe.setCinsiyet(patientLogDto.getCinsiyet());
+        patientLogFormMaybe.setAyiriciTani(patientLogDto.getAyiriciTani());
+        patientLogFormMaybe.setEtkilesimTuru(patientLogDto.getEtkilesimTuru());
+        patientLogFormMaybe.setKapsam(patientLogDto.getKapsam());
+        patientLogFormMaybe.setGerceklestigiOrtam(patientLogDto.getGerceklestigiOrtam());
+        patientLogFormMaybe.setKayitNo(patientLogDto.getKayitNo());
+        patientLogFormMaybe.setKesinTani(patientLogDto.getKesinTani());
+        patientLogFormMaybe.setSikayet(patientLogDto.getSikayet());
+        patientLogFormMaybe.setSpeciality(speciality);
+        patientLogFormMaybe.setStatus(patientLogDto.getStatus());
+        patientLogFormMaybe.setTedaviYontemi(patientLogDto.getTedaviYontemi());
+        patientLogFormMaybe.setYas(patientLogDto.getYas());
+        patientLogFormMaybe.setAttending(attendingPhysician);
+        patientLogFormMaybe.setStudent(student);
+        patientLogFormMaybe.setCoordinator(coordinator);
         patientLogDataAccess.save(patientLogFormMaybe);
-        return patientLogForm;
+        return patientLogFormMaybe;
     }
 
     @Override

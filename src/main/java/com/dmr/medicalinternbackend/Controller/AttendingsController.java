@@ -1,11 +1,13 @@
 package com.dmr.medicalinternbackend.Controller;
 import com.dmr.medicalinternbackend.Entities.AttendingPhysician;
 import com.dmr.medicalinternbackend.Service.attending.IAttendingPhysician;
+import com.dmr.medicalinternbackend.dto.response.AttendingPhysicianResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/attending-physicians")
@@ -19,14 +21,16 @@ public class AttendingsController {
     }
 
     @GetMapping
-    public ResponseEntity<List<AttendingPhysician>> getAttendings(@RequestParam("specialityId") int id){
-        return attendingService.getAttendingPhysiciansBySpeciality(id);
+    public Set<AttendingPhysicianResponseDto> getAttendingPhysicians(){
+        return attendingService.getAttendingPhysicians();
     }
 
-    @GetMapping("{specialityId}")
-    public ResponseEntity<AttendingPhysician> getAttendingBySpecialityId(@PathVariable("specialityId") int id){
-        return new ResponseEntity<>(attendingService.getAttendingById(id), HttpStatus.OK);
-    }
+    /*
+    @Deprecated
+    @GetMapping
+    public ResponseEntity<List<AttendingPhysician>> getAttendingBySpecialityId(@RequestParam("specialityId") int id){
+        return new ResponseEntity<>(attendingService.getAttendingsBySpecialtyId(id), HttpStatus.OK);
+    }*/
 
 
 }

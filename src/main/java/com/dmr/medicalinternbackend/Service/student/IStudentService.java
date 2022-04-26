@@ -1,7 +1,7 @@
 package com.dmr.medicalinternbackend.Service.student;
 
 import com.dmr.medicalinternbackend.Entities.Student;
-import com.dmr.medicalinternbackend.requests.DashboardDto;
+import com.dmr.medicalinternbackend.dto.requests.DashboardDto;
 
 import java.util.List;
 

@@ -1,14 +1,12 @@
 package com.dmr.medicalinternbackend.Controller;
 
-import com.dmr.medicalinternbackend.Entities.Speciality;
 import com.dmr.medicalinternbackend.Service.speciality.ISpecialityService;
-import org.springframework.http.ResponseEntity;
+import com.dmr.medicalinternbackend.dto.response.SpecialityResponseDto;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/specialities")
@@ -20,9 +18,13 @@ public class SpecialitiesController {
         this.specialityService = specialityService;
     }
 
-
     @GetMapping
+    public Set<SpecialityResponseDto> getSpecialities(){
+        return specialityService.getSpecialities();
+    }
+
+  /*  @GetMapping
     public ResponseEntity<List<Speciality>> getSpecialitiesByCourseId(@RequestParam("courseId") int id){
         return specialityService.getSpecialityByCourseId(id);
-    }
+    }*/
 }

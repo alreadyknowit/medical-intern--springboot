@@ -1,4 +1,4 @@
-package com.dmr.medicalinternbackend.requests;
+package com.dmr.medicalinternbackend.dto.requests;
 
 import lombok.Getter;
 import lombok.Setter;
