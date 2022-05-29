@@ -31,12 +31,6 @@ public class PatientLogsController {
       return new ResponseEntity<>(formService.getById(id),HttpStatus.OK);
     }
 
-    //update form info
-    @PutMapping("{id}")
-    public ResponseEntity<PatientLogForm> updateForm(@RequestBody PatientLogDto patientLogDto, @PathVariable("id") int id){
-        return new ResponseEntity<>(formService.updateForm(patientLogDto, id), HttpStatus.OK);
-    }
-
     @DeleteMapping("{id}")
     public void deleteForm(@PathVariable("id") int id){
         formService.deleteForm(id);

@@ -7,8 +7,8 @@ import lombok.Setter;
 @Setter
 public class PatientLogDto {
 
-    private int id;
     private int coordinatorId;
+    private int courseId;
     private int studentId;
     private int attendingId;
     private int specialityId;

@@ -35,6 +35,10 @@ public class PatientLogForm {
     @JoinColumn(name = "Speciality_id", nullable = false)
     private Speciality speciality;
 
+    @ManyToOne
+    @JoinColumn(name = "Course_id", nullable = false)
+    private Course course;
+
     @Column(name = "Kayit_no", nullable = false)
     private String kayitNo;
 
@@ -70,7 +74,8 @@ public class PatientLogForm {
     private String status;
 
     @CreationTimestamp
-    @Column(name="created_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="created_at", updatable = false)
     private Date createdAt;
 
     @UpdateTimestamp

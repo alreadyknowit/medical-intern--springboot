@@ -12,7 +12,7 @@ public interface IPatientLogService {
     PatientLogForm insertForm(PatientLogDto formDto);
     ResponseEntity<List<PatientLogForm>> getFormsById(Optional<Integer> id, Optional<Integer> attendingId, Optional<Integer> coordinatorId,String status);
     PatientLogForm getById(int id);
-    PatientLogForm updateForm(PatientLogDto patientLogDto, int id);
+
     void deleteForm(int id);
     void deleteAllForms();
 

@@ -29,6 +29,10 @@ public class Course {
     @JsonIgnore
     Set<Student> students;
 
+    @OneToMany(mappedBy = "course")
+    @JsonIgnore
+    List<PatientLogForm> patientLogForms;
+
     private int total;
 
     public int getId() {

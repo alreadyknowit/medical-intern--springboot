@@ -10,7 +10,7 @@ import java.util.Set;
 
 @Getter
 @Setter
-public class DashboardDto {
+public class ProfileDto {
 
     private int id;
     private long oasisId;
@@ -19,4 +19,6 @@ public class DashboardDto {
     private Set<Course> courses;
     private Set<Speciality> specialities;
     private HashMap<String,Integer> courseIdCompletedAmount;
+    private int numberOfPatientLogs;
+    private int numberOfProcedures;
 }

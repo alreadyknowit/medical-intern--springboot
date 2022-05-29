@@ -3,7 +3,8 @@ package com.dmr.medicalinternbackend.Service.student;
 import com.dmr.medicalinternbackend.DAO.StudentDataAccess;
 import com.dmr.medicalinternbackend.Entities.Student;
 import com.dmr.medicalinternbackend.Exception.ResourceNotFoundException;
-import com.dmr.medicalinternbackend.dto.requests.DashboardDto;
+import com.dmr.medicalinternbackend.dto.requests.ProfileDto;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,9 +13,11 @@ import java.util.List;
 public class StudentService implements IStudentService {
 
     private final StudentDataAccess studentDataAccess;
+    private final ModelMapper modelMapper;
 
-    public StudentService(StudentDataAccess studentDataAccess) {
+    public StudentService(StudentDataAccess studentDataAccess, ModelMapper modelMapper) {
         this.studentDataAccess = studentDataAccess;
+        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -45,18 +48,28 @@ public class StudentService implements IStudentService {
     }
 
     @Override
-    public DashboardDto getProfile(int studentId){
+    public ProfileDto getProfile(int studentId){
         Student student = studentDataAccess.findById(studentId).orElseThrow(()->
                 new ResourceNotFoundException("Student", "Id", studentId));
-        DashboardDto dashboardDto = new DashboardDto();
-        dashboardDto.setCourses(student.getCourses());
-        dashboardDto.setOasisId(student.getOasisID());
-        dashboardDto.setId(studentId);
-        dashboardDto.setNoPatientLogs(getNumberOfPatientLogs(studentId));
-        dashboardDto.setNoProcedures(getNumberOfProcedures(studentId));
 
-        return dashboardDto;
+        int numberOfProcedures=studentDataAccess.findNumberOfProcedures(student.getId());
+        int numberOfPatientLogs=studentDataAccess.findNumberOfPatientLogs(student.getId());
+        ProfileDto profileDto = new ProfileDto();
+        profileDto.setNumberOfProcedures(numberOfProcedures);
+        profileDto.setNumberOfPatientLogs(numberOfPatientLogs);
+        profileDto.setCourses(student.getCourses());
+        profileDto.setOasisId(student.getOasisID());
+        profileDto.setId(studentId);
+        profileDto.setNoPatientLogs(getNumberOfPatientLogs(studentId));
+        profileDto.setNoProcedures(getNumberOfProcedures(studentId));
+
+        return profileDto;
     }
+
+  /*  public ProfileDto mapToDto(Student student){
+
+        return modelMapper.map()
+    }*/
 
 
 }
