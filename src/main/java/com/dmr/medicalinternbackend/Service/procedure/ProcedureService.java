@@ -90,7 +90,7 @@ public class ProcedureService implements IProcedureService{
         else if(attendingId.isPresent())
             return new ResponseEntity<>(procedureFormDataAccess.findAllByAttendingIdAndStatus(attendingId.get(),status),HttpStatus.OK);
 
-        throw new ResourceNotFoundException("Patient Logs", "coordinator id",coordinatorId);
+        throw new ResourceNotFoundException("Patient Logs", " id",coordinatorId);
     }
 
 
