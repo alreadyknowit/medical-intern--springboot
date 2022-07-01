@@ -110,9 +110,10 @@ public class PatientLogService implements IPatientLogService {
     //FIXME: Use a reasonable way. Dont use if else
     @Override
     @SuppressWarnings({"OptionalUsedAsFieldOrParameterType", "ConstantConditions"})
-    public ResponseEntity<List<PatientLogForm>> getFormsById(Optional<Integer> studentId, Optional<Integer> attendingId, Optional<Integer> coordinatorId, String status) {
+    public ResponseEntity<List<PatientLogForm>> getFormsById(int studentId,String status) {
 
-        if (studentId.isPresent())
+        return new ResponseEntity<>(patientLogDataAccess.findByStudentIdAndStatus(studentId,status), HttpStatus.OK);
+      /*  if (studentId.isPresent())
             return new ResponseEntity<>(patientLogDataAccess.
                     findByStudentIdAndStatus(studentId.get(), status), HttpStatus.OK);
         else if (coordinatorId.isPresent())
@@ -138,7 +139,8 @@ public class PatientLogService implements IPatientLogService {
                     findAllByStudentIdAndAttendingIdAndCoordinatorIdAndStatus(
                             studentId.get(), attendingId.get(),
                             coordinatorId.get(), status), HttpStatus.OK);
-        else throw new ResourceNotFoundException("Patient Logs", "id", -1);
+        else throw new ResourceNotFoundException("Patient Logs", "id", -1);*/
+
 
     }
 }

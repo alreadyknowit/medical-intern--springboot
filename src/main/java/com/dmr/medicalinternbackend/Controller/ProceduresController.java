@@ -41,7 +41,6 @@ public class ProceduresController {
                                                                 @RequestParam("coordinatorId") Optional<Integer> coordinatorId,
                                                                 @RequestParam("attendingId") Optional<Integer> attendingId,
                                                                 @RequestParam("status") String status){
-
         return procedureService.getFormsById(studentId,attendingId,coordinatorId,status);
     }
 
