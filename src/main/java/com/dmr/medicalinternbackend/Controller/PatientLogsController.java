@@ -43,12 +43,10 @@ public class PatientLogsController {
 
     // TODO: sending wrong information
     @GetMapping
-    public ResponseEntity<List<PatientLogForm>> getStudentsForm(@RequestParam("studentId") Optional<Integer> studentId,
-                                                                @RequestParam("coordinatorId") Optional<Integer> coordinatorId,
-                                                                @RequestParam("attendingId") Optional<Integer> attendingId,
+    public ResponseEntity<List<PatientLogForm>> getStudentsForm(@RequestParam("studentId") int studentId,
                                                                 @RequestParam("status") String status){
 
-        return formService.getFormsById(studentId,attendingId,coordinatorId,status);
+        return formService.getFormsById(studentId,status);
     }
 
 }

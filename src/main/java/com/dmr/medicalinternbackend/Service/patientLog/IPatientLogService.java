@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface IPatientLogService {
 
     PatientLogForm insertForm(PatientLogDto formDto);
-    ResponseEntity<List<PatientLogForm>> getFormsById(Optional<Integer> id, Optional<Integer> attendingId, Optional<Integer> coordinatorId,String status);
+    ResponseEntity<List<PatientLogForm>> getFormsById(int id,String status);
     PatientLogForm getById(int id);
 
     void deleteForm(int id);
