@@ -4,6 +4,7 @@ import com.dmr.medicalinternbackend.DAO.*;
 import com.dmr.medicalinternbackend.Entities.*;
 import com.dmr.medicalinternbackend.Exception.ResourceNotFoundException;
 import com.dmr.medicalinternbackend.dto.requests.PatientLogDto;
+import org.apache.catalina.mapper.Mapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,12 +34,7 @@ public class PatientLogService implements IPatientLogService {
         this.modelMapper = modelMapper;
     }
 
-    //gets only one form using id .../patient-logs/19
-    @Override
-    public PatientLogForm getById(int id) {
-        return patientLogDataAccess.findById(id).orElseThrow(()
-                -> new ResourceNotFoundException("Form", "ID", id));
-    }
+
 
     //insert a new form
     @Override
@@ -109,39 +105,50 @@ public class PatientLogService implements IPatientLogService {
 
     //FIXME: Use a reasonable way. Dont use if else
     @Override
-    @SuppressWarnings({"OptionalUsedAsFieldOrParameterType", "ConstantConditions"})
     public ResponseEntity<List<PatientLogForm>> getFormsById(int studentId,String status) {
 
         return new ResponseEntity<>(patientLogDataAccess.findByStudentIdAndStatus(studentId,status), HttpStatus.OK);
-      /*  if (studentId.isPresent())
-            return new ResponseEntity<>(patientLogDataAccess.
-                    findByStudentIdAndStatus(studentId.get(), status), HttpStatus.OK);
-        else if (coordinatorId.isPresent())
-            return new ResponseEntity<>(patientLogDataAccess.
-                    findAllByCoordinatorIdAndStatus(coordinatorId.get(), status), HttpStatus.OK);
-        else if (attendingId.isPresent())
-            return new ResponseEntity<>(patientLogDataAccess.
-                    findAllByAttendingIdAndStatus(attendingId.get(), status), HttpStatus.OK);
-        else if (studentId.isPresent() && attendingId.isPresent())
-            return new ResponseEntity<>(patientLogDataAccess.
-                    findAllByStudentIdAndAttendingIdAndStatus(studentId.get(),
-                            attendingId.get(), status), HttpStatus.OK);
-        else if (studentId.isPresent() && coordinatorId.isPresent())
-            return new ResponseEntity<>(patientLogDataAccess.
-                    findAllByStudentIdAndCoordinatorIdAndStatus(studentId.get(),
-                            coordinatorId.get(), status), HttpStatus.OK);
-        else if (attendingId.isPresent() & coordinatorId.isPresent())
-            return new ResponseEntity<>(patientLogDataAccess.
-                    findAllByAttendingIdAndCoordinatorIdAndStatus(attendingId.get(),
-                            coordinatorId.get(), status), HttpStatus.OK);
-        else if (studentId.isPresent() && coordinatorId.isPresent() && attendingId.isPresent())
-            return new ResponseEntity<>(patientLogDataAccess.
-                    findAllByStudentIdAndAttendingIdAndCoordinatorIdAndStatus(
-                            studentId.get(), attendingId.get(),
-                            coordinatorId.get(), status), HttpStatus.OK);
-        else throw new ResourceNotFoundException("Patient Logs", "id", -1);*/
 
+    }
 
+    @Override
+    public ResponseEntity<List<PatientLogForm>> getFormsAttending(int id, String status) {
+        return new ResponseEntity<>(patientLogDataAccess.findByAttendingIdAndStatus(id,status), HttpStatus.OK);
+    }
+
+    @Override
+    public PatientLogForm updateStatus(PatientLogDto dto, int id) {
+        PatientLogForm form =patientLogDataAccess.findById(id).orElseThrow(() ->
+                new ResourceNotFoundException("Patient log", "id", id));
+
+        Course course = courseDataAccess.findById(dto.getCourseId()).orElseThrow(() ->
+                new ResourceNotFoundException("Course", "id", dto.getCourseId()));
+        Coordinator coordinator = coordinatorDataAccess.findById(dto.getCoordinatorId()).orElseThrow(() ->
+                new ResourceNotFoundException("Coordinator", "id", dto.getCoordinatorId()));
+        AttendingPhysician attendingPhysician = attendingDataAccess.findById(dto.getAttendingId()).orElseThrow(() ->
+                new ResourceNotFoundException("Attending", "ID", dto.getAttendingId()));
+        Student student = studentDataAccess.findById(dto.getStudentId()).orElseThrow(() ->
+                new ResourceNotFoundException("Student", "ID", dto.getStudentId()));
+        Speciality speciality = specialityDataAccess.findById(dto.getSpecialityId()).orElseThrow(() ->
+                new ResourceNotFoundException("Speciality", "Id", dto.getSpecialityId()));
+        form.setCoordinator(coordinator);
+        form.setCourse(course);
+        form.setStudent(student);
+        form.setAttending(attendingPhysician);
+        form.setSpeciality(speciality);
+        form.setKayitNo(dto.getKayitNo());
+        form.setCinsiyet(dto.getCinsiyet());
+        form.setYas(dto.getYas());
+        form.setSikayet(dto.getSikayet());
+        form.setAyiriciTani(dto.getAyiriciTani());
+        form.setKesinTani(dto.getKesinTani());
+        form.setTedaviYontemi(dto.getTedaviYontemi());
+        form.setEtkilesimTuru(dto.getEtkilesimTuru());
+        form.setKapsam(dto.getKapsam());
+        form.setGerceklestigiOrtam(dto.getGerceklestigiOrtam());
+        form.setStatus(dto.getStatus());
+        patientLogDataAccess.save(form);
+        return form;
     }
 }
 

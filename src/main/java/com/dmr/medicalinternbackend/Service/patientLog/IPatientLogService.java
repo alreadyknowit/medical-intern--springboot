@@ -11,7 +11,9 @@ public interface IPatientLogService {
 
     PatientLogForm insertForm(PatientLogDto formDto);
     ResponseEntity<List<PatientLogForm>> getFormsById(int id,String status);
-    PatientLogForm getById(int id);
+    ResponseEntity<List<PatientLogForm>> getFormsAttending(int id,String status);
+
+    PatientLogForm updateStatus(PatientLogDto dto,int id);
 
     void deleteForm(int id);
     void deleteAllForms();

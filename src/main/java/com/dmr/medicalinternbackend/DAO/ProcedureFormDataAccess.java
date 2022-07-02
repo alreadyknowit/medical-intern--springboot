@@ -10,4 +10,6 @@ public interface ProcedureFormDataAccess extends JpaRepository<ProcedureForm,Int
     List<ProcedureForm> findAllByStudentIdAndStatus(int id,String status);
     List<ProcedureForm> findAllByAttendingIdAndStatus(int id,String status);
     List<ProcedureForm> findAllByCoordinatorIdAndStatus(int id,String status);
+
+
 }
