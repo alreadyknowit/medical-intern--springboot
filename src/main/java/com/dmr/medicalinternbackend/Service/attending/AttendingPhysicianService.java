@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import javax.naming.AuthenticationException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -37,6 +38,20 @@ public class AttendingPhysicianService implements IAttendingPhysician {
             dtoSet.add(mapToDto(a));
         }
         return dtoSet;
+    }
+
+    @Override
+    public AttendingPhysician loginAttending(String no, String password) throws AuthenticationException {
+        AttendingPhysician attendingPhysician =attendingDataAccess.findByPhoneNoAndPassword(no,password);
+
+        if(attendingPhysician==null) throw new AuthenticationException("Attending not found: " +no );
+        return attendingPhysician;
+    }
+
+    @Override
+    public boolean checkAvailability(String no) throws AuthenticationException {
+        AttendingPhysician physician = attendingDataAccess.findByPhoneNo(no);
+        return physician != null;
     }
 
     public AttendingPhysicianResponseDto mapToDto(AttendingPhysician attendingPhysician) {

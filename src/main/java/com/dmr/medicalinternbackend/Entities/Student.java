@@ -23,6 +23,8 @@ public class Student {
     @Column(name = "Student_name",nullable = false)
     private String name;
 
+    @Column(nullable = false)
+    private String password;
     @ManyToMany
       private Set<Course> courses;
 
@@ -36,6 +38,7 @@ public class Student {
     @OneToMany(mappedBy = "student",fetch = FetchType.LAZY)
     @JsonIgnore
     private List<ProcedureForm> procedureForms;
+
 
 
 }

@@ -39,4 +39,7 @@ public class AttendingPhysician {
     @ManyToOne
     @JoinColumn(name = "Speciality_id", nullable = false)
     private Speciality speciality;
+
+    @Column(nullable = false)
+    private String password;
 }

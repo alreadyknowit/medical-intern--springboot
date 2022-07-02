@@ -7,7 +7,9 @@ import com.dmr.medicalinternbackend.dto.requests.ProfileDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import javax.naming.AuthenticationException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StudentService implements IStudentService {
@@ -65,6 +67,26 @@ public class StudentService implements IStudentService {
 
         return profileDto;
     }
+
+    @Override
+    public Student getStudentLogin(long oasisId, String password, String role) throws AuthenticationException {
+        Student student = studentDataAccess.findByOasisIDAndPassword(oasisId,password);
+
+        if(student == null)
+            throw new AuthenticationException("Student not found");
+
+        return student;
+    }
+
+    @Override
+    public boolean checkAvailability(long no) throws AuthenticationException {
+        Student student = studentDataAccess.findByOasisID(no);
+
+        return student != null;
+        //throw new AuthenticationException("No such oasisID: " + no);
+    }
+
+
 
   /*  public ProfileDto mapToDto(Student student){
 

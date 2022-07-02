@@ -8,4 +8,8 @@ import java.util.List;
 public interface AttendingDataAccess extends JpaRepository<AttendingPhysician, Integer> {
 
     List<AttendingPhysician> findBySpecialityId(int specialityId);
+
+    AttendingPhysician findByPhoneNoAndPassword(String no, String password);
+
+    AttendingPhysician findByPhoneNo(String no);
 }

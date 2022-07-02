@@ -14,7 +14,7 @@ import java.util.Set;
 
 
 @Service
-public class SpecialityService implements ISpecialityService{
+public class SpecialityService implements ISpecialityService {
 
     private final SpecialityDataAccess specialityDataAccess;
     private final ModelMapper modelMapper;
@@ -28,20 +28,20 @@ public class SpecialityService implements ISpecialityService{
     @Override
     public ResponseEntity<List<Speciality>> getSpecialityByCourseId(int id) {
 
-                return new ResponseEntity<>(specialityDataAccess.findAllByCourseId(id), HttpStatus.OK);
+        return new ResponseEntity<>(specialityDataAccess.findAllByCourseId(id), HttpStatus.OK);
     }
 
     @Override
     public Set<SpecialityResponseDto> getSpecialities() {
-     List<Speciality> list = specialityDataAccess.findAll();
-     Set<SpecialityResponseDto> dtoSet = new HashSet<>();
-     for(Speciality s : list){
-         dtoSet.add(mapToDto(s));
-     }
+        List<Speciality> list = specialityDataAccess.findAll();
+        Set<SpecialityResponseDto> dtoSet = new HashSet<>();
+        for (Speciality s : list) {
+            dtoSet.add(mapToDto(s));
+        }
         return dtoSet;
     }
 
-    public SpecialityResponseDto mapToDto(Speciality speciality){
-        return modelMapper.map(speciality,SpecialityResponseDto.class);
+    public SpecialityResponseDto mapToDto(Speciality speciality) {
+        return modelMapper.map(speciality, SpecialityResponseDto.class);
     }
 }
