@@ -28,6 +28,9 @@ public class ProcedureForm {
     private Student student;
 
     @ManyToOne
+    @JoinColumn(name = "Course_id", nullable = false)
+    private Course course;
+    @ManyToOne
     @JoinColumn(name = "Attending_id", nullable = false)
     private AttendingPhysician attending;
 

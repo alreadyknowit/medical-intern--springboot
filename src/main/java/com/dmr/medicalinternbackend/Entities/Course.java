@@ -33,6 +33,10 @@ public class Course {
     @JsonIgnore
     List<PatientLogForm> patientLogForms;
 
+    @OneToMany(mappedBy = "course")
+    @JsonIgnore
+    List<ProcedureForm> procedureForms;
+
     private int total;
 
     public int getId() {
