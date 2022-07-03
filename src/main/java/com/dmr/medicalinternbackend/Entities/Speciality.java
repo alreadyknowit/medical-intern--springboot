@@ -37,7 +37,7 @@ public class Speciality {
     @JsonIgnore
     private List<Diagnosis> diagnoses;
 
-    private int total;
+
 
     public int getId() {
         return id;
@@ -87,13 +87,7 @@ public class Speciality {
         this.diagnoses = diagnoses;
     }
 
-    public int getTotal() {
-        return total;
-    }
 
-    public void setTotal(int total) {
-        this.total = total;
-    }
 
     public Course getCourse() {
         return course;

@@ -14,7 +14,7 @@ import java.util.Optional;
 
 
 @Service
-public class ProcedureService implements IProcedureService{
+public class ProcedureService implements IProcedureService {
 
 
     private final ProcedureFormDataAccess procedureFormDataAccess;
@@ -36,14 +36,14 @@ public class ProcedureService implements IProcedureService{
 
     @Override
     public ProcedureForm getProcedureById(int id) {
-       return procedureFormDataAccess.findById(id).orElseThrow(()->new ResourceNotFoundException("Procedure Form","ID",id));
+        return procedureFormDataAccess.findById(id).orElseThrow(() -> new ResourceNotFoundException("Procedure Form", "ID", id));
     }
 
     @Override
     public ProcedureForm updateProcedureForm(ProcedureForm procedureForm, int id) {
 
-        ProcedureForm formMaybe = procedureFormDataAccess.findById(id).orElseThrow(()->
-                new ResourceNotFoundException("Procedure Form","ID", id));
+        ProcedureForm formMaybe = procedureFormDataAccess.findById(id).orElseThrow(() ->
+                new ResourceNotFoundException("Procedure Form", "ID", id));
 
         formMaybe.setEtkilesimTuru(procedureForm.getEtkilesimTuru());
         formMaybe.setGerceklestigiOrtam(procedureForm.getGerceklestigiOrtam());
@@ -63,13 +63,13 @@ public class ProcedureService implements IProcedureService{
         form.setEtkilesimTuru(formDto.getEtkilesimTuru());
         form.setStatus(formDto.getStatus());
 
-        AttendingPhysician attendingPhysician =attendingDataAccess.findById(formDto.getAttendingId()).orElseThrow(()->
-                new ResourceNotFoundException("Attending", "ID",formDto.getAttendingId()));
-        Student student=studentDataAccess.findById(formDto.getStudentId()).orElseThrow(()->
+        AttendingPhysician attendingPhysician = attendingDataAccess.findById(formDto.getAttendingId()).orElseThrow(() ->
+                new ResourceNotFoundException("Attending", "ID", formDto.getAttendingId()));
+        Student student = studentDataAccess.findById(formDto.getStudentId()).orElseThrow(() ->
                 new ResourceNotFoundException("Student", "ID", formDto.getStudentId()));
-        Coordinator coordinator = coordinatorDataAccess.findById(formDto.getCoordinatorId()).orElseThrow(()->
+        Coordinator coordinator = coordinatorDataAccess.findById(formDto.getCoordinatorId()).orElseThrow(() ->
                 new ResourceNotFoundException("Coordinator", "Id", formDto.getCoordinatorId()));
-        Speciality speciality =specialityDataAccess.findById(formDto.getSpecialityId()).orElseThrow(()->
+        Speciality speciality = specialityDataAccess.findById(formDto.getSpecialityId()).orElseThrow(() ->
                 new ResourceNotFoundException("Speciality", "Id", formDto.getSpecialityId()));
 
         form.setStudent(student);
@@ -80,18 +80,19 @@ public class ProcedureService implements IProcedureService{
     }
 
     @Override
-    public ResponseEntity<List<ProcedureForm>> getFormsById(Optional<Integer> studentId, Optional<Integer> attendingId, Optional<Integer> coordinatorId,String status) {
+    public ResponseEntity<List<ProcedureForm>> getStudentsForm(int studentId, String status) {
 
-        //TODO:Switch case kullanılacak
-        if(studentId.isPresent())
-            return new ResponseEntity<>(procedureFormDataAccess.findAllByStudentIdAndStatus(studentId.get(),status), HttpStatus.OK);
-        else if(coordinatorId.isPresent())
-            return new ResponseEntity<>(procedureFormDataAccess.findAllByCoordinatorIdAndStatus(coordinatorId.get(),status),HttpStatus.OK);
-        else if(attendingId.isPresent())
-            return new ResponseEntity<>(procedureFormDataAccess.findAllByAttendingIdAndStatus(attendingId.get(),status),HttpStatus.OK);
+        return new ResponseEntity<>(procedureFormDataAccess.findByStudentIdAndStatus(studentId, status), HttpStatus.OK);
 
-        throw new ResourceNotFoundException("Patient Logs", " id",coordinatorId);
     }
+
+    @Override
+    public ResponseEntity<List<ProcedureForm>> getAttendingForms(int studentId, String status) {
+
+        return new ResponseEntity<>(procedureFormDataAccess.findByAttendingIdAndStatus(studentId, status), HttpStatus.OK);
+
+    }
+
 
 
 }

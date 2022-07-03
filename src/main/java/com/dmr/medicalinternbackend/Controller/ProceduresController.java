@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/procedures")
@@ -37,13 +36,16 @@ public class ProceduresController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ProcedureForm>> getStudentsForm( @RequestParam("studentId") Optional<Integer> studentId,
-                                                                @RequestParam("coordinatorId") Optional<Integer> coordinatorId,
-                                                                @RequestParam("attendingId") Optional<Integer> attendingId,
+    public ResponseEntity<List<ProcedureForm>> getStudentsForm( @RequestParam("studentId") int studentId,
                                                                 @RequestParam("status") String status){
-        return procedureService.getFormsById(studentId,attendingId,coordinatorId,status);
+        return procedureService.getStudentsForm(studentId,status);
     }
 
+    @GetMapping("/attending")
+    public ResponseEntity<List<ProcedureForm>> getAttendingForms( @RequestParam("attendingId") int id,
+                                                                @RequestParam("status") String status){
+        return procedureService.getAttendingForms(id,status);
+    }
 
 
 }

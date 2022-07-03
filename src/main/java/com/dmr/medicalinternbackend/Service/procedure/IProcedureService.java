@@ -5,7 +5,6 @@ import com.dmr.medicalinternbackend.dto.requests.ProcedureDto;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface IProcedureService {
 
@@ -17,5 +16,7 @@ public interface IProcedureService {
 
     ProcedureForm insertProcedureForm(ProcedureDto form);
 
-    ResponseEntity<List<ProcedureForm>> getFormsById(Optional<Integer> id, Optional<Integer> attendingId, Optional<Integer> coordinatorId,String status);
+    ResponseEntity<List<ProcedureForm>> getStudentsForm(int id, String status);
+    ResponseEntity<List<ProcedureForm>> getAttendingForms(int id, String status);
+
 }

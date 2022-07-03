@@ -31,6 +31,8 @@ public class ProcedureForm {
     @JoinColumn(name = "Attending_id", nullable = false)
     private AttendingPhysician attending;
 
+    @Column(name="kayit_no")
+    private String kayitNo;
     @ManyToOne
     @JoinColumn(name = "Speciality_id", nullable = false)
     private Speciality speciality;

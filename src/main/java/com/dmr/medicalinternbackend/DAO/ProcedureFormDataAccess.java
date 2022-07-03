@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface ProcedureFormDataAccess extends JpaRepository<ProcedureForm,Integer> {
 
-    List<ProcedureForm> findAllByStudentIdAndStatus(int id,String status);
-    List<ProcedureForm> findAllByAttendingIdAndStatus(int id,String status);
-    List<ProcedureForm> findAllByCoordinatorIdAndStatus(int id,String status);
+    List<ProcedureForm> findByStudentIdAndStatus(int id,String status);
+    List<ProcedureForm> findByAttendingIdAndStatus(int id,String status);
+    List<ProcedureForm> findByCoordinatorIdAndStatus(int id,String status);
 
 
 }
