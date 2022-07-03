@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @Service
@@ -23,14 +22,17 @@ public class ProcedureService implements IProcedureService {
     private final AttendingDataAccess attendingDataAccess;
     private final SpecialityDataAccess specialityDataAccess;
 
+    private final CourseDataAccess courseDataAccess;
+
     public ProcedureService(ProcedureFormDataAccess procedureFormDataAccess, StudentDataAccess studentDataAccess,
                             CoordinatorDataAccess coordinatorDataAccess, AttendingDataAccess attendingDataAccess,
-                            SpecialityDataAccess specialityDataAccess) {
+                            SpecialityDataAccess specialityDataAccess, CourseDataAccess courseDataAccess) {
         this.procedureFormDataAccess = procedureFormDataAccess;
         this.studentDataAccess = studentDataAccess;
         this.coordinatorDataAccess = coordinatorDataAccess;
         this.attendingDataAccess = attendingDataAccess;
         this.specialityDataAccess = specialityDataAccess;
+        this.courseDataAccess = courseDataAccess;
     }
 
 
@@ -62,7 +64,7 @@ public class ProcedureService implements IProcedureService {
         form.setGerceklestigiOrtam(formDto.getGerceklestigiOrtam());
         form.setEtkilesimTuru(formDto.getEtkilesimTuru());
         form.setStatus(formDto.getStatus());
-
+        form.setKayitNo(formDto.getKayitNo());
         AttendingPhysician attendingPhysician = attendingDataAccess.findById(formDto.getAttendingId()).orElseThrow(() ->
                 new ResourceNotFoundException("Attending", "ID", formDto.getAttendingId()));
         Student student = studentDataAccess.findById(formDto.getStudentId()).orElseThrow(() ->
@@ -71,11 +73,14 @@ public class ProcedureService implements IProcedureService {
                 new ResourceNotFoundException("Coordinator", "Id", formDto.getCoordinatorId()));
         Speciality speciality = specialityDataAccess.findById(formDto.getSpecialityId()).orElseThrow(() ->
                 new ResourceNotFoundException("Speciality", "Id", formDto.getSpecialityId()));
+        Course course = courseDataAccess.findById(formDto.getCourseId()).orElseThrow(() ->
+                new ResourceNotFoundException("Course", "Id", formDto.getCourseId()));
 
         form.setStudent(student);
         form.setCoordinator(coordinator);
         form.setAttending(attendingPhysician);
         form.setSpeciality(speciality);
+        form.setCourse(course);
         return procedureFormDataAccess.save(form);
     }
 

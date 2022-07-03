@@ -65,4 +65,6 @@ public class ProcedureForm {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private Date updatedAt;
+
+
 }
