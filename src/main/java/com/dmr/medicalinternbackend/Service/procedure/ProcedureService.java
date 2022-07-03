@@ -21,7 +21,7 @@ public class ProcedureService implements IProcedureService {
     private final CoordinatorDataAccess coordinatorDataAccess;
     private final AttendingDataAccess attendingDataAccess;
     private final SpecialityDataAccess specialityDataAccess;
-
+    
     private final CourseDataAccess courseDataAccess;
 
     public ProcedureService(ProcedureFormDataAccess procedureFormDataAccess, StudentDataAccess studentDataAccess,
@@ -73,8 +73,8 @@ public class ProcedureService implements IProcedureService {
                 new ResourceNotFoundException("Coordinator", "Id", formDto.getCoordinatorId()));
         Speciality speciality = specialityDataAccess.findById(formDto.getSpecialityId()).orElseThrow(() ->
                 new ResourceNotFoundException("Speciality", "Id", formDto.getSpecialityId()));
-        Course course = courseDataAccess.findById(formDto.getCourseId()).orElseThrow(() ->
-                new ResourceNotFoundException("Course", "Id", formDto.getCourseId()));
+        Course course = courseDataAccess.findById(formDto.getSpecialityId()).orElseThrow(() ->
+                new ResourceNotFoundException("Speciality", "Id", formDto.getSpecialityId()));
 
         form.setStudent(student);
         form.setCoordinator(coordinator);
