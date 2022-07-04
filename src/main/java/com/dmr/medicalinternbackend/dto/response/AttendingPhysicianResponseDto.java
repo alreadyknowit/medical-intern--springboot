@@ -7,6 +7,17 @@ public class AttendingPhysicianResponseDto {
     private int instituteId;
     private int specialityId;
 
+    private String phoneNo;
+
+    public String getPhoneNo() {
+
+        return phoneNo;
+    }
+
+    public void setPhoneNo(String phoneNo) {
+        this.phoneNo = phoneNo;
+    }
+
     public int getId() {
         return id;
     }

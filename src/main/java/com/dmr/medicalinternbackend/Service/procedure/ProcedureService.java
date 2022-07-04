@@ -42,19 +42,32 @@ public class ProcedureService implements IProcedureService {
     }
 
     @Override
-    public ProcedureForm updateProcedureForm(ProcedureForm procedureForm, int id) {
+    public ProcedureForm updateProcedureForm(ProcedureDto dto, int id) {
 
         ProcedureForm formMaybe = procedureFormDataAccess.findById(id).orElseThrow(() ->
                 new ResourceNotFoundException("Procedure Form", "ID", id));
+/*
+        Course course = courseDataAccess.findById(dto.getCourseId()).orElseThrow(() ->
+                new ResourceNotFoundException("Course", "id", dto.getCourseId()));
+        Coordinator coordinator = coordinatorDataAccess.findById(dto.getCoordinatorId()).orElseThrow(() ->
+                new ResourceNotFoundException("Coordinator", "id", dto.getCoordinatorId()));
+        AttendingPhysician attendingPhysician = attendingDataAccess.findById(dto.getAttendingId()).orElseThrow(() ->
+                new ResourceNotFoundException("Attending", "ID", dto.getAttendingId()));
+        Student student = studentDataAccess.findById(dto.getStudentId()).orElseThrow(() ->
+                new ResourceNotFoundException("Student", "ID", dto.getStudentId()));
+        Speciality speciality = specialityDataAccess.findById(dto.getSpecialityId()).orElseThrow(() ->
+                new ResourceNotFoundException("Speciality", "Id", dto.getSpecialityId()));
 
-        formMaybe.setEtkilesimTuru(procedureForm.getEtkilesimTuru());
-        formMaybe.setGerceklestigiOrtam(procedureForm.getGerceklestigiOrtam());
-        formMaybe.setAttending(procedureForm.getAttending());
-        formMaybe.setCoordinator(procedureForm.getCoordinator());
-        formMaybe.setStudent(procedureForm.getStudent());
-        formMaybe.setTibbiUygulama(procedureForm.getTibbiUygulama());
-        procedureFormDataAccess.save(procedureForm);
-        return procedureForm;
+        formMaybe.setEtkilesimTuru(dto.getEtkilesimTuru());
+        formMaybe.setGerceklestigiOrtam(dto.getGerceklestigiOrtam());
+        formMaybe.setAttending(attendingPhysician);
+        formMaybe.setCoordinator(coordinator);
+        formMaybe.setStudent(student);
+        formMaybe.setTibbiUygulama(dto.getTibbiUygulama());*/
+        formMaybe.setStatus(dto.getStatus());
+
+        procedureFormDataAccess.save(formMaybe);
+        return formMaybe;
     }
 
     @Override

@@ -12,7 +12,7 @@ public interface IProcedureService {
 
     ProcedureForm getProcedureById(int id);
 
-    ProcedureForm updateProcedureForm(ProcedureForm procedureForm, int id);
+    ProcedureForm updateProcedureForm(ProcedureDto procedureForm, int id);
 
     ProcedureForm insertProcedureForm(ProcedureDto form);
 

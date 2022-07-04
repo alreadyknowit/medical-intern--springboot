@@ -31,7 +31,7 @@ public class ProceduresController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<ProcedureForm> updateProcedureForm(@RequestBody ProcedureForm form, @PathVariable int id){
+    public ResponseEntity<ProcedureForm> updateProcedureForm(@RequestBody ProcedureDto form, @PathVariable int id){
         return new ResponseEntity<>(procedureService.updateProcedureForm(form,id),HttpStatus.CREATED);
     }
 
